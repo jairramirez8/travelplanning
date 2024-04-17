@@ -4,115 +4,40 @@
  *
  * @format
  */
+import React, {useState} from 'react';
+import { StyleSheet, View, Text, ScrollView, Image } from 'react-native';
+import CardTravel from './components/CardTravel';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+export default function App(){
+  const data = [
+    {id: 1, nombre: 'Cancun', estatus: 'Disponible', calificacion: 4.5, imagen: 'https://content.r9cdn.net/rimg/dimg/f2/b1/89e06bf7-city-34713-16ed2f2c7f1.jpg?width=1366&height=768&xhint=1735&yhint=2084&crop=true'},
+    {id: 2, nombre: 'Paris', estatus: 'Disponible', calificacion: 4.0, imagen: 'https://a.storyblok.com/f/112937/568x464/954a33563a/paris-de-noche.jpg/m/620x0/filters:quality(70)/'},
+    {id: 3, nombre: 'Colombia', estatus: 'Disponible', calificacion: 4.0, imagen: 'https://mochileros.com.mx/wp-content/uploads/2023/05/2020.02-Colombia-Capa-2-1.jpg'},
+  ];
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
+  return(
+    <View>
+      <ScrollView>
+        {
+          data.map((item) => (
+            <CardTravel
+              key={item.id}
+              id={item.id}
+              nombre={item.nombre}
+              estatus={item.estatus}
+              calificacion={item.calificacion}
+              imagen={item.imagen}
+              onPress={() => {
+                console.log('Presionaste la tarjeta de viaje:', item.nombre);
+              }}
+            />
+          ))
+        }
       </ScrollView>
-    </SafeAreaView>
+      
+    </View>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
